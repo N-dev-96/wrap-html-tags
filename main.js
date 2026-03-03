@@ -1,44 +1,32 @@
-/*global define, brackets, $ */
+/*global define, brackets */
 
-// See detailed docs in https://docs.phcode.dev/api/creating-extensions
-
-// A good place to look for code examples for extensions: https://github.com/phcode-dev/phoenix/tree/main/src/extensions/default
-
-// A simple extension that adds an entry in "file menu> hello world"
 define(function (require, exports, module) {
-    "use strict";
+"use strict";
 
-    // Brackets modules
-    const AppInit = brackets.getModule("utils/AppInit"),
-        DefaultDialogs = brackets.getModule("widgets/DefaultDialogs"),
-        Dialogs = brackets.getModule("widgets/Dialogs"),
-        CommandManager = brackets.getModule("command/CommandManager"),
-        Menus = brackets.getModule("command/Menus");
+const AppInit        = brackets.getModule("utils/AppInit"),
+      CommandManager = brackets.getModule("command/CommandManager"),
+      KeyBindingManager = brackets.getModule("command/KeyBindingManager"),
+      EditorManager  = brackets.getModule("editor/EditorManager");
 
-    // Function to run when the menu item is clicked
-    function handleHelloWorld() {
-        Dialogs.showModalDialog(
-            DefaultDialogs.DIALOG_ID_INFO,
-            "hello",
-            "world"
+function wrapWith(tag) {
+    var editor = EditorManager.getActiveEditor();
+    if (!editor) return;
+    var sel  = editor.getSelection();
+    var text = editor.getSelectedText();
+    if (text) {
+        editor.document.replaceRange(
+            "<" + tag + ">" + text + "</" + tag + ">",
+            sel.start, sel.end
         );
     }
-    
-      // First, register a command - a UI-less object associating an id to a handler
-    var MY_COMMAND_ID = "helloworld.sayhello";   // package-style naming to avoid collisions
-    CommandManager.register("Hello World", MY_COMMAND_ID, handleHelloWorld);
+}
 
-    // Then create a menu item bound to the command
-    // The label of the menu item is the name we gave the command (see above)
-    var menu = Menus.getMenu(Menus.AppMenuBar.FILE_MENU);
-    menu.addMenuItem(MY_COMMAND_ID);
-    
-    // We could also add a key binding at the same time:
-    //menu.addMenuItem(MY_COMMAND_ID, "Ctrl-Alt-W");
-    // (Note: "Ctrl" is automatically mapped to "Cmd" on Mac)
-    
-    // Initialize extension once shell is finished initializing.
-    AppInit.appReady(function () {
-        console.log("hello world");
-    });
+CommandManager.register("Wrap: strong", "wrap.strong", function () { wrapWith("strong"); });
+CommandManager.register("Wrap: em",     "wrap.em",     function () { wrapWith("em"); });
+
+AppInit.appReady(function () {
+    KeyBindingManager.addBinding("wrap.strong", "Ctrl-B");
+    KeyBindingManager.addBinding("wrap.em",     "Ctrl-I");
+    console.log("Wrap HTML Tags extension loaded");
+});
 });
