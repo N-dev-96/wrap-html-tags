@@ -13,4 +13,4 @@ Extension for [Phoenix Code](https://phcode.io) that wraps selected text with HT
 
 1. Open Phoenix Code
 2. Go to Extensions
-3. Install from GitHub: `tvoje-jmeno/wrap-html-tags`
+3. Install from GitHub: `N-dev-96/wrap-html-tags`
