@@ -1,20 +1,19 @@
 {
-    "title": "Name of the extension",
-    "name": "github-<owner>-<repo>",
-    "description": "A sample extension.",
-    "version": "0.0.1",
-    "license": "MIT",
-    "author": "your name (https://github.com/<your github id>)",
-    "homepage": "<project web page url or this github repo url if no website available>",
-    "engines": {
-        "brackets": ">=2.0.0"
-    },
-    "categories": "demo",
-    "keywords": [
-        "phcode", "extension", "demo"
-    ],
-    "files": [
-        "main.js"
-    ]
+"title": "Wrap HTML Tags",
+"name": "github-<N-dev-96>-wrap-html-tags",
+"description": "Wrap selected text with HTML tags using keyboard shortcuts (Ctrl+B = strong, Ctrl+I = em).",
+"version": "0.0.1",
+"license": "MIT",
+"author": "tvoje jmeno (https://github.com/<tvoje-jmeno>)",
+"homepage": "https://github.com/<tvoje-jmeno>/wrap-html-tags",
+"engines": {
+    "brackets": ">=2.0.0"
+},
+"categories": "demo",
+"keywords": [
+    "phcode", "extension", "wrap", "html"
+],
+"files": [
+    "main.js"
+]
 }
-
